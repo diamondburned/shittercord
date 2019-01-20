@@ -1,0 +1,6 @@
+{{ range . }}
+<div class="guild" id="{{ .ID }}">
+	<img class="guild-icon icon" src="{{ .URL }}"></img>
+	<div class="guild-name">{{ .Name | html }}</div>
+</div>
+{{ end }}

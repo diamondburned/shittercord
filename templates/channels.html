@@ -1,0 +1,11 @@
+{{ range . }}
+<div class="category" id="{{ .CategoryID }}">
+	{{ if .CategoryName }}
+	<p class="category-name">{{ .CategoryName | html }}</p>
+	{{ end }}
+
+	{{ range .Channels }}
+	<div class="channel" id="{{ .ID }}">{{ .Name | html }}</div>
+	{{ end }}
+</div>
+{{ end }}

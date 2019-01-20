@@ -1,0 +1,286 @@
+body {
+	/* Styles */
+	font-family: "Overpass", "Segoe UI", "Helvetica", "Source Sans Pro", "Noto Sans", sans-serif;
+	font-size: 12pt;
+	display: block;
+	background-color: #282828;
+	color: #dbdbdb;
+	margin: 0;
+}
+
+div.separator {
+	margin: 0;
+	height: *;
+	border-right: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.bottom-grid-wrap {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+.icon {
+	width: 35px;
+	height: 35px;
+	background-color: white;
+	border-radius: 50%;
+}
+
+/* TOP BAR */
+
+.header {
+	font-size: 16pt;
+	margin-top:*; 
+	margin-bottom:*; 
+}
+
+#topbar {
+	height: 50px;
+	flow: horizontal;
+	background-color: #383838;
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.5);
+}
+
+#topbar .left {
+	width: 25%;
+	max-width: 250px;
+	flow: horizontal;
+}
+
+#topbar .left div.topbar-guild-button {
+	width: 50px;
+	height: 50px;
+	background-color: #7289da;
+	margin-right: 0.5em;
+}
+
+img.topbar-guild-button {
+	margin:*; 
+	border-spacing:*; 
+}
+
+.topbar-guild-name, .topbar-guild-button {
+	cursor: pointer;
+}
+
+#topbar .right {
+	width: 1*;
+	flow: horizontal;
+	margin-top:*; 
+	margin-bottom:*; 
+	margin-left: 0.5em;
+	margin-right: 0.5em;
+	border-spacing:*; 
+}
+
+#topbar .right .topbar-userinfo {
+	text-align: right;
+	flow: horizontal;
+}
+
+#topbar .right .topbar-userinfo .userinfo-username {
+	margin-right: 0.5em;
+}
+
+#topbar .right .topbar-userinfo .userinfo-avatar {
+	margin: 0;
+	padding: 0;
+	background-color: white; 
+	border: 2px solid;
+	border-color: #f04747; /* #43b581 for online */
+	cursor: pointer;
+}
+
+img.userinfo-avatar:hover {
+	opacity: 0.75;
+}
+
+/* APP */
+
+#app {
+	flow: horizontal;
+	height: 1*;
+}
+
+/* GUILD LIST */
+
+.guild-list {
+	width: 25%;
+	max-width: 250px;
+	height: 1*;
+	visibility: collapse;
+	border-right: 1px solid rgba(0, 0, 0, 0.25);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+	overflow: scroll;
+}
+
+.guild {
+	flow: horizontal;
+	cursor: pointer;
+}
+
+.guild:hover {
+	transition: background-color(quint-out, 0.15s);
+	background-color: rgba(0, 0, 0, 0.25);
+}
+
+.guild:active {
+	background-color: rgba(0, 0, 0, 0.15);
+}
+
+.guild-icon {
+	margin: 0.5em;
+}
+
+.guild-name {
+	height: 1*;
+	border-left: 1px solid rgba(0,0,0,0.25);
+	padding: 65%% 0;
+	padding-left: 5px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: 1.5em;
+}
+
+/* CHANNEL LIST */
+
+.channel-list {
+	flow: vertical;
+	width: 25%;
+	max-width: 250px;
+	height: 1*;
+	overflow: scroll;
+	visibility: visible;
+	border-right: 1px solid rgba(0, 0, 0, 0.25);
+}
+
+p.category-name {
+	text-transform: uppercase;
+	font-size: 0.8em;
+	opacity: 0.75;
+	margin: 0;
+	padding-right: 10px;
+	padding-left: 10px;
+	padding-top: 10px;
+	cursor: pointer;
+}
+
+p.category-name:hover {
+	opacity: 1;
+}
+
+.channel-list .category .channel {
+	text-transform: none;
+	font-size: 1em;
+	opacity: 0.65;
+	padding-left: 20px;
+	padding-right: 20px;
+	line-height: 1.75em;
+	cursor: pointer;
+}
+
+.channel-list .category .channel:hover {
+	transition: background-color(quint-out, 0.1s);
+	background-color: rgba(0, 0, 0, 0.25);
+}
+
+.channel-list .category .channel:active {
+	background-color: rgba(0, 0, 0, 0.15);
+}
+
+.channel-list .category .channel.unread {
+	opacity: 1;
+}
+
+.channel-list .category .channel::before {
+	content: "#";
+	margin-right: 2px;
+}
+
+/* MESSAGES */
+
+#app div.message-pane {
+	width: 1*;
+	height: 1*;
+}
+
+.messages {
+	width: 1*;
+	height: 1*;
+	overflow: scroll;
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+}
+
+/* MESSAGE */
+
+.message {
+	font-size: 11pt;
+	flow: horizontal;
+	border-top: 1px solid rgba(0,0,0,0.25);
+}
+
+.message.blocked {
+	height: 2px;
+	overflow: hidden;
+}
+
+.author-avatar {
+	margin: 12px;
+	margin-right: 10px;
+}
+
+.author {
+	font-size: 0.9em;
+	font-weight: bold;
+}
+
+.message-container {
+	flow: vertical;
+	margin-top: 10px;
+}
+
+.message-content {
+	padding-right: 1em;
+	margin-bottom: 12px;
+}
+
+.message-content p {
+	margin: 0;
+}
+
+/* SEND FIELD */
+
+div.message-input {
+	flow: horizontal;
+	height: 40px;
+	width: 90%%;
+	margin: 5px 5px;
+	background-color: rgba(0,0,0,0.25);
+	border-radius: 20px;
+}
+
+.file-upload-button, .emoji-button {
+	height: 25px;
+	width: 25px;
+	padding: 7px;
+	opacity: 0.5;
+	transition: opacity(quint-out, 0.25s);
+	cursor: pointer;
+}
+
+.file-upload-button:hover, .emoji-button:hover {
+	opacity: 1;
+}
+
+.message-input-area {
+	display: block;
+	size: 1* 40px;
+	flow: horizontal;
+	background: transparent;
+	border: none;
+	color: white;
+}
+
+.message-input-area > * {
+	margin: * 0;
+}
