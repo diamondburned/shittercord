@@ -26,6 +26,10 @@ var (
 	d *discordgo.Session
 )
 
+func init() {
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+}
+
 func main() {
 	var (
 		token     = flag.String("t", "", "Discord token (1)")

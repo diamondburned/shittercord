@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"sort"
 
 	"github.com/RumbleFrog/discordgo"
@@ -16,8 +17,8 @@ func getUserData(m *discordgo.Message) (name string, color int) {
 
 	guild, err := d.State.Guild(m.GuildID)
 	if err != nil {
-		if guild, err = d.Guild(m.ChannelID); err != nil {
-			// log.Println(err)
+		if guild, err = d.Guild(m.GuildID); err != nil {
+			log.Println(err)
 			return
 		}
 	}
@@ -25,7 +26,7 @@ func getUserData(m *discordgo.Message) (name string, color int) {
 	member, err := d.State.Member(guild.ID, m.Author.ID)
 	if err != nil {
 		if member, err = d.GuildMember(guild.ID, m.Author.ID); err != nil {
-			// log.Println(err)
+			log.Println(err)
 			return
 		}
 	}
