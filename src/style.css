@@ -68,6 +68,12 @@ img.topbar-guild-button {
 	border-spacing:*; 
 }
 
+.topbar-guild-name {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 .topbar-guild-name, .topbar-guild-button {
 	cursor: pointer;
 }
@@ -80,6 +86,10 @@ img.topbar-guild-button {
 	margin-left: 0.5em;
 	margin-right: 0.5em;
 	border-spacing:*; 
+}
+
+#topbar .right .topbar-channel-name:not(:empty)::before {
+	content: "#";
 }
 
 #topbar .right .topbar-userinfo {
