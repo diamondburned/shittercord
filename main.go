@@ -115,7 +115,9 @@ func main() {
 			return nil
 		}
 
-		go loadMsgs(chid)
+		go func() {
+			loadMsgs(chid)
+		}()
 
 		return nil
 	})
