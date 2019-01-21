@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"html/template"
 	"log"
+
+	"github.com/RumbleFrog/discordgo"
 )
 
 var (
@@ -31,7 +33,62 @@ type messageTemplateData struct {
 
 	Content template.HTML
 
+	Attachments []messageAttachmentTemplateData
+	Embeds      []messageEmbedTemplateData
+
 	// Todo: embed
+}
+
+type MediaType string
+
+const (
+	TypeFile MediaType = "file"
+
+	TypeAudio MediaType = "audio"
+
+	TypeVideo MediaType = "video"
+
+	TypeImage MediaType = "image"
+)
+
+type messageAttachmentTemplateData struct {
+	MediaType MediaType
+	Name      string
+	URL       string
+	Original  string
+	Size      string
+}
+
+type messageEmbedTemplateData struct {
+	PillColor string
+
+	Title    string
+	TitleURL string
+
+	Author     string
+	AuthorURL  string
+	AuthorIcon string
+
+	ThumbnailURL      string
+	ThumbnailOriginal string
+	ThumbnailWidth    int
+	ThumbnailHeight   int
+
+	Description template.HTML
+
+	Fields []*discordgo.MessageEmbedField
+
+	// Footer already includes timestamp
+	Footer     string
+	FooterIcon string
+
+	ImageURL      string
+	ImageOriginal string
+	ImageWidth    int
+	ImageHeight   int
+
+	// Todo: video support
+	// Todo: find out what Provider is
 }
 
 type guildsTemplateData struct {

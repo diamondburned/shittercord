@@ -14,8 +14,8 @@ const (
 		blackfriday.EXTENSION_FENCED_CODE |
 		blackfriday.EXTENSION_AUTOLINK |
 		blackfriday.EXTENSION_STRIKETHROUGH |
-		blackfriday.EXTENSION_HARD_LINE_BREAK |
-		blackfriday.EXTENSION_JOIN_LINES
+		blackfriday.EXTENSION_HARD_LINE_BREAK
+	// blackfriday.EXTENSION_JOIN_LINES
 )
 
 // MDtoHTML .

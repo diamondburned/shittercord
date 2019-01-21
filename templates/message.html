@@ -1,13 +1,67 @@
 <div class="message {{ if .Blocked }}blocked{{ end }}" id="{{ .ID }}">
-	<img class="author-avatar icon" src="https://cdn.discordapp.com/avatars/{{ .AuthorID }}/{{ .AvatarName }}.png?size=64"></img>
+	<img class="author-avatar icon" src="{{ if .AvatarName }}https://cdn.discordapp.com/avatars/{{ .AuthorID }}/{{ .AvatarName }}.png?size=64{{ end }}"></img>
 	<div class="message-container">
 		<div class="author" style="color: {{ .NameColor }}">
 			{{ .DisplayName }}
 			<div class="author-timestamp">{{ .Timestamp }}</div>
 		</div>
-		<div class="message-content">
-			{{ .Content }}
+		<div class="message-content">{{ .Content }}</div>
+		{{ range .Attachments }}
+		<div class="message-attachments">
+			{{ if eq .MediaType "image" }}
+			<a class="attachment-img-a" href="{{ .Original }}">
+				<img class="attachment-img" src="{{ .URL }}" title="{{ .Name }} ({{ .Size }})" />
+			</a>
+			{{ else }}
+			<div class="attachment-file">
+				<a class="attachment-file-name" href="{{ .Original }}">{{ .Name }}</a>
+				<p class="attachment-file-size">{{ .Size }}</p>
+			</div>
+			{{ end }}
 		</div>
+		{{ end }}
+		{{ range .Embeds }}
+		<div class="message-embed" style="border-color: {{ .PillColor }}">
+			<div class="message-embed-main">
+				{{ if .Author }}
+				<div class="message-embed-author">
+					{{ if .AuthorIcon }}
+					<img class="message-embed-author-icon icon" src="{{ .AuthorIcon }}" />
+					{{ end }}
+					<a {{ if .AuthorURL }} href="{{ .AuthorURL }}" {{ end }}>
+						{{ .Author }}
+					</a>
+				</div>
+				{{ end }}
 
+				<a class="message-embed-title" {{ if .TitleURL }} href="{{ .TitleURL }}" {{ end }}>{{ .Title }}</a>
+
+				<p class="message-embed-description">{{ .Description }}</p>
+
+				{{ if .Fields }}
+				<div class="message-embed-fields">
+					{{ range .Fields }} <!-- Not entirely sure how to do Inline fields -->
+					<div class="message-embed-field">
+						<p class="message-embed-field-name">{{ .Name }}</p>
+						<p class="message-embed-field-value">{{ .Value }}</p>
+					</div>
+					{{ end }}
+				</div>
+				{{ end }}
+
+				<div class="message-embed-footer">
+					{{ if .FooterIcon }}
+					<img class="message-embed-footer-icon icon" src="{{ .FooterIcon }}" />
+					{{ end }}
+					<p>{{ .Footer }}</p>
+				</div>
+			</div>
+			<div class="message-embed-thumbnail">
+				<a href="{{ .ThumbnailOriginal }}">
+					<img src="{{ .ThumbnailURL }}" width="{{ .ThumbnailWidth }}" height="{{ .ThumbnailHeight }}" />
+				</a>
+			</div>
+		</div>
+		{{ end }}
 	</div>
 </div>
