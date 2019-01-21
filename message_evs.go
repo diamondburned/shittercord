@@ -28,7 +28,10 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 
 	if m.ChannelID != currentChannel {
-		GetElementByCSS
+		if e := GetElementByCSS(fmt.Sprintf("#%d", m.ChannelID)); e != nil {
+			e.SetAttr("class", "channel unread")
+		}
+
 		return
 	}
 
