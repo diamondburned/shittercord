@@ -1,6 +1,8 @@
 package main
 
 import (
+	"html"
+
 	"github.com/sciter-sdk/go-sciter"
 )
 
@@ -19,7 +21,16 @@ func GetElementByCSS(css string) *sciter.Element {
 	return elem
 }
 
+// SetHTML sets the innerHTML for the element
 func SetHTML(elem *sciter.Element, html string) {
-	elem.SetHtml(html, sciter.SIH_REPLACE_CONTENT)
-	elem.Update(false)
+	elem.SetHtml(html, sciter.SOH_REPLACE)
+
+	elem.Update(false) // screen sometimes flashes white with false
+	// we'll see if this fixes it
+}
+
+// SetText uses SetHTML with html EscapeString instead of
+// Sciter's SetText function
+func SetText(elem *sciter.Element, text string) {
+	SetHTML(elem, html.EscapeString(text))
 }

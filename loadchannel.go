@@ -1,9 +1,6 @@
 package main
 
 import (
-	"fmt"
-	"html"
-	"html/template"
 	"log"
 	"strings"
 	"sync"
@@ -17,6 +14,13 @@ var (
 
 func loadMsgs(chID int64) {
 	currentChannel = 0
+
+	go func(chID int64) {
+		ch, err := d.State.Channel(chID)
+		if err == nil {
+			SetText(GetElementByCSS("#channel-name"), ch.Name)
+		}
+	}(chID)
 
 	msgs, err := d.ChannelMessages(chID, 25, 0, 0, 0)
 	if err != nil {
@@ -42,19 +46,7 @@ func loadMsgs(chID int64) {
 		wg.Add(1)
 		go func(m *discordgo.Message, i int) {
 			defer wg.Done()
-
-			author, color := getUserData(m) // todo: put this in a goroutine
-
-			data := messageTemplateData{
-				ID:          m.ID,
-				AuthorID:    m.Author.ID,
-				AvatarName:  m.Author.Avatar,
-				NameColor:   fmt.Sprintf("#%X", color),
-				DisplayName: html.EscapeString(author),
-				Content:     template.HTML(MDtoHTML(m.Content)),
-			}
-
-			messages[i] = RenderToString(data)
+			messages[i] = messageToHTML(m)
 		}(m, i)
 	}
 

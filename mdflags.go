@@ -5,9 +5,9 @@ import "github.com/russross/blackfriday"
 const (
 	mdHTMLFlags = 0 |
 		blackfriday.HTML_SKIP_STYLE |
-		blackfriday.HTML_SKIP_IMAGES |
-		blackfriday.HTML_SKIP_LINKS |
-		blackfriday.HTML_SKIP_HTML
+		// blackfriday.HTML_SKIP_IMAGES |
+		blackfriday.HTML_SKIP_LINKS
+		// blackfriday.HTML_SKIP_HTML
 
 	mdExtensions = 0 |
 		blackfriday.EXTENSION_NO_INTRA_EMPHASIS |

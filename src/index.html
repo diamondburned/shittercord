@@ -18,6 +18,8 @@
 			} else {
 				gdList.style#visibility = "collapse"
 			}
+
+			smartScroll() 
 		})
 
 		$(.left).on("~mouseup", "div.topbar-guild-name", function() {
@@ -27,6 +29,8 @@
 			} else {
 				chList.style#visibility = "collapse"
 			}
+
+			smartScroll() 
 		})
 
 		event click $(.message.blocked) {
@@ -51,21 +55,34 @@
 		})
 
 		event click $(.guild) {
+			$(.channel-list).html = `<div class="warn-message">Loading...</div>`
 			view.loadguild(this.id)
 		}
 
 		event click $(.channel) {
+			$(.messages).html = `<div class="warn-message">Loading...</div>`
 			view.loadchannel(this.id)
+			scrollToBottom()
 		}
 
 		function scrollToBottom() {
 			var msgs = $(.messages)
 			self.update(false)
-			msgs.scrollTo(0, msgs.box(#height,#content) - msgs.box(#height,#client))
+			msgs.scrollTo(0, msgs.box(#height,#content) - msgs.box(#height,#client), true, false)
+		}
+
+		function smartScroll() {
+			var msgs = $(.messages)
+			var maxScroll = msgs.box(#height,#content) - msgs.box(#height,#client)
+
+			if (msgs.scroll(#top) * 100 / maxScroll > 80) {
+				scrollToBottom()
+			}
 		}
 
 		function appendHTMLMessage(rawHTML) {
 			$(.messages).append(rawHTML)
+			smartScroll()
 		}
 
 		$(.message-input-area).on("~keydown", function(evt) { 
@@ -87,153 +104,31 @@
 	<nav id="topbar">
 		<div class="left">
 			<div class="topbar-guild-button">
-				<img id="guild-icon" class="topbar-guild-button" src="https://cdn.discordapp.com/icons/361910177961738242/e394d8600456ab50f989f03ac651a25b.png"></img>
+				<img id="guild-icon" class="topbar-guild-button" src=""></img>
 			</div>
-			<div id="guild-name" class="topbar-guild-name header">r/unixporn</div>
+			<div id="guild-name" class="topbar-guild-name header"></div>
 		</div>
 		<div class="separator"></div>
 		<div class="right">
-			<div class="topbar-channel-name header">#home</div>
+			<div id="channel-name" class="topbar-channel-name header"></div>
 			<div class="topbar-userinfo">
-				<div id="self-username" class="userinfo-username header">_diamondburned_#4507</div>
-				<img id="self-avatar" class="userinfo-avatar icon" src="https://cdn.discordapp.com/avatars/170132746042081280/11211a426378b4ff9eafacd3ac91ffc7.png?size=64"></img>
+				<div id="self-username" class="userinfo-username header"></div>
+				<img id="self-avatar" class="userinfo-avatar icon" src=""></img>
 			</div>
 		</div>
 	</nav>
 	<div id="app">
 		<div class="guild-list">
 			<div class="bottom-grid-wrap">
-				<!--
-				<div class="guild" id="-1">
-					<img class="guild-icon icon" src="https://raw.githubusercontent.com/google/material-design-icons/master/social/1x_web/ic_people_black_48dp.png"></img>
-					<div class="guild-name">Direct Messages</div>
-				</div>
-				<div class="guild" id="0">
-					<img class="guild-icon icon" src="https://cdn.discordapp.com/icons/361910177961738242/e394d8600456ab50f989f03ac651a25b.png"></img>
-					<div class="guild-name">r/unixporn</div>
-				</div>
-				<div class="guild" id="1">
-					<img class="guild-icon icon" src="https://cdn.discordapp.com/icons/444048320349077525/4846ac2092e3592e4fe64e375ec7031d.png"></img>
-					<div class="guild-name">Arthur's Throne</div>
-				</div>
-				<div class="guild" id="2">
-					<img class="guild-icon icon" src="https://cdn.discordapp.com/icons/463234796643155968/735a2586a26abd25658966275fe7b7a2.png"></img>
-					<div class="guild-name">diamondburned's forest</div>
-				</div>
-				<div class="guild" id="3">
-					<img class="guild-icon icon" src="https://cdn.discordapp.com/icons/118456055842734083/58e28cb37cb75fbda97b4bb5c3744d45.png"></img>
-					<div class="guild-name">Discord Gophers</div>
-				</div>
-				<div class="guild" id="4">
-					<img class="guild-icon icon" src="https://cdn.discordapp.com/icons/263380069014044672/bc5cb8c473408d56ccffae6278cf71a5.png"></img>
-					<div class="guild-name">Youjo Senki</div>
-				</div>
-				-->
+				<div class="warn-message">Loading...</div>
 			</div>
 		</div>
 		<div class="channel-list">
-			<!--
-			<div class="category" id="0">
-				<p class="category-name">Landing</p>
-				<div class="channel">announcements</div>
-				<div class="channel">rules</div>
-				<div class="channel">modlog</div>
-				<div class="channel">starboard</div>
-				<div class="channel">feedback</div>
-			</div>
-			<div class="category" id="1">
-				<p class="category-name">Lounge</p>
-				<div class="channel">home</div>
-				<div class="channel">techsupport</div>
-				<div class="channel">programming</div>
-				<div class="channel">hardware</div>
-				<div class="channel">anime</div>
-				<div class="channel unread">devnull</div>
-			</div>
-			<div class="category" id="1">
-				<p class="category-name">Ricing</p>
-				<div class="channel">ricing</div>
-				<div class="channel">de</div>
-				<div class="channel">wm</div>
-				<div class="channel">tools</div>
-				<div class="channel">wallpapers</div>
-			</div>
-			-->
+			<div class="warn-message">Pick a server first!</div>
 		</div>
 		<div class="message-pane">
 			<div class="messages">
-				<!--
-				<div class="message" id="0">
-					<img class="author-avatar icon" src="https://cdn.discordapp.com/avatars/170132746042081280/11211a426378b4ff9eafacd3ac91ffc7.png?size=64"></img>
-					<div class="message-container">
-						<div class="author">_diamondburned_</div>
-						<div class="message-content">sciter is a faggot framework that doesn't even fucking work. are you fucking kidding me? how do you mess shit up this badly? and tiscript? what the fuck? why the fuck don't you guys fucking document that horseshit?</div>
-					</div>
-				</div>
-				<div class="message" id="1">
-					<img class="author-avatar icon" src="https://cdn.discordapp.com/avatars/216397232512040961/18b9673d6ee259754bf5ffda99948a32.png?size=64"></img>
-					<div class="message-container">
-						<div class="author">gwimm</div>
-						<div class="message-content">my nvim ;-;</div>
-					</div>
-				</div>
-				<div class="message" id="2">
-					<img class="author-avatar icon" src="https://cdn.discordapp.com/avatars/293020652955369472/d56a5ad199a0cea4b6d7e8b077e7afb2.png?size=64"></img>
-					<div class="message-container">
-						<div class="author">viz</div>
-						<div class="message-content">solution is kelvin tbh</div>
-					</div>
-				</div>
-				<div class="message" id="3">
-					<img class="author-avatar icon" src="https://cdn.discordapp.com/avatars/264555158975807489/905573e0b051882997176e9f6d51b9cd.png?size=64"></img>
-					<div class="message-container">
-						<div class="author">Sacul</div>
-						<div class="message-content">taglib released version 0.0.0.0.0.0.0.1.2.0 alpha 493</div>
-					</div>
-				</div>
-				<div class="message blocked" id="3">
-					<img class="author-avatar icon" src="https://cdn.discordapp.com/avatars/257954736689512448/f925bb25741bdc1f9938c88b539ecdaf.png?size=64"></img>
-					<div class="message-container">
-						<div class="author">ym555</div>
-						<div class="message-content"><i>inaudible rust birb sounds</i></div>
-					</div>
-				</div>
-				<div class="message" id="3">
-					<img class="author-avatar icon" src="https://cdn.discordapp.com/avatars/264555158975807489/905573e0b051882997176e9f6d51b9cd.png?size=64"></img>
-					<div class="message-container">
-						<div class="author">Sacul</div>
-						<div class="message-content">taglib released version 0.0.0.0.0.0.0.1.2.0 alpha 493</div>
-					</div>
-				</div>
-				<div class="message" id="3">
-					<img class="author-avatar icon" src="https://cdn.discordapp.com/avatars/264555158975807489/905573e0b051882997176e9f6d51b9cd.png?size=64"></img>
-					<div class="message-container">
-						<div class="author">Sacul</div>
-						<div class="message-content">taglib released version 0.0.0.0.0.0.0.1.2.0 alpha 493</div>
-					</div>
-				</div>
-				<div class="message" id="3">
-					<img class="author-avatar icon" src="https://cdn.discordapp.com/avatars/264555158975807489/905573e0b051882997176e9f6d51b9cd.png?size=64"></img>
-					<div class="message-container">
-						<div class="author">Sacul</div>
-						<div class="message-content">taglib released version 0.0.0.0.0.0.0.1.2.0 alpha 493</div>
-					</div>
-				</div>
-				<div class="message" id="3">
-					<img class="author-avatar icon" src="https://cdn.discordapp.com/avatars/264555158975807489/905573e0b051882997176e9f6d51b9cd.png?size=64"></img>
-					<div class="message-container">
-						<div class="author">Sacul</div>
-						<div class="message-content">taglib released version 0.0.0.0.0.0.0.1.2.0 alpha 493</div>
-					</div>
-				</div>
-				<div class="message" id="3">
-					<img class="author-avatar icon" src="https://cdn.discordapp.com/avatars/264555158975807489/905573e0b051882997176e9f6d51b9cd.png?size=64"></img>
-					<div class="message-container">
-						<div class="author">Sacul</div>
-						<div class="message-content">taglib released version 0.0.0.0.0.0.0.1.2.0 alpha 493</div>
-					</div>
-				</div>
-				-->
+				<div class="warn-message">No messages yet...</div>
 			</div>
 			<div class="message-input">
 				<img class="file-upload-button" src="https://github.com/google/material-design-icons/raw/master/content/1x_web/ic_add_circle_white_24dp.png"></img>

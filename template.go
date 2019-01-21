@@ -64,7 +64,6 @@ func RenderToString(data interface{}) string {
 		err = guildTemplate.Execute(&b, data)
 	case []categoriesTemplateData:
 		err = channelsTemplate.Execute(&b, data)
-		log.Println(b.String())
 	default:
 		return ""
 	}

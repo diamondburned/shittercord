@@ -28,6 +28,9 @@ func loadGuild(gid int64) {
 			},
 		)
 
+		// Set bar title to (Direct) Messages
+		SetText(GetElementByCSS("#guild-name"), "Messages")
+
 		for _, dmCh := range d.State.PrivateChannels {
 			var userstr []string
 			for _, u := range dmCh.Recipients {
@@ -51,6 +54,9 @@ func loadGuild(gid int64) {
 				return
 			}
 		}
+
+		// Set bar title to Guild name
+		SetText(GetElementByCSS("#guild-name"), guild.Name)
 
 		// map[ch_id][]channels
 		categorizedChannels := make(map[int64]sortCats)

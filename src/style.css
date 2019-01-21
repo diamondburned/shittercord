@@ -8,6 +8,10 @@ body {
 	margin: 0;
 }
 
+pre, code {
+	font-family: monospace;
+}
+
 div.separator {
 	margin: 0;
 	height: *;
@@ -23,6 +27,12 @@ div.separator {
 	height: 35px;
 	background-color: white;
 	border-radius: 50%;
+}
+
+.warn-message {
+	width: *;
+	text-align: center;
+	margin: 2em 0;
 }
 
 /* TOP BAR */
@@ -86,7 +96,7 @@ img.topbar-guild-button {
 	padding: 0;
 	background-color: white; 
 	border: 2px solid;
-	border-color: #f04747; /* #43b581 for online */
+	border-color: transparent; /* #43b581 for online, #f04747 for busy */
 	cursor: pointer;
 }
 
@@ -246,6 +256,13 @@ p.category-name:hover {
 
 .message-content p {
 	margin: 0;
+}
+
+.emoji {
+	size: 1.45em 1.45em;
+    margin-left: .05em;
+    margin-right: .1em;
+	vertical-align: -.4em;
 }
 
 /* SEND FIELD */

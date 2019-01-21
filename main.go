@@ -27,7 +27,11 @@ var (
 )
 
 func main() {
-	token := flag.String("t", "", "Discord token (1)")
+	var (
+		token     = flag.String("t", "", "Discord token (1)")
+		debug     = flag.Bool("d", false, "Enables the debugging Websocket for Inspector (Sciter developers only!)")
+		customCSS = flag.String("css", "", "Location to custom CSS (ONLY Sciter CSS! https://sciter.com/docs/content/css/cssmap.html)")
+	)
 
 	flag.Parse()
 
@@ -52,13 +56,20 @@ func main() {
 		Token = k
 	}
 
-	sciter.SetOption(
-		sciter.SCITER_SET_SCRIPT_RUNTIME_FEATURES,
-		sciter.ALLOW_FILE_IO|
-			sciter.ALLOW_SOCKET_IO|
-			sciter.ALLOW_EVAL|
-			sciter.ALLOW_SYSINFO,
-	)
+	if *debug {
+		sciter.SetOption(
+			sciter.SCITER_SET_SCRIPT_RUNTIME_FEATURES,
+			sciter.ALLOW_FILE_IO|
+				sciter.ALLOW_SOCKET_IO|
+				sciter.ALLOW_EVAL|
+				sciter.ALLOW_SYSINFO,
+		)
+	}
+
+	if *customCSS != "" {
+		log.Println("Appending custom Sciter CSS...")
+		log.Println("Status:", sciter.AppendMasterCSS(*customCSS))
+	}
 
 	w, err = window.New(sciter.DefaultWindowCreateFlag, &sciter.Rect{
 		Left:   0,
@@ -114,11 +125,11 @@ func main() {
 			return nil
 		}
 
-		go func() {
-			if _, err := d.ChannelMessageSend(currentChannel, args[0].String()); err != nil {
+		go func(content string) {
+			if _, err := d.ChannelMessageSend(currentChannel, content); err != nil {
 				log.Println(err)
 			}
-		}()
+		}(args[0].String())
 
 		return nil
 	})
@@ -130,8 +141,31 @@ func main() {
 		panic(err)
 	}
 
+	// Called to load guild list
 	d.AddHandler(onReady)
+
+	// The following function drops when the Channel ID
+	// doesn't match the global variable
+
+	// Called when there's a new message
 	d.AddHandler(messageCreate)
+
+	// Called when there's a message edited
+	d.AddHandler(messageUpdate)
+
+	// Called when there's a message deleted
+	d.AddHandler(messageDelete)
+
+	// Called when messages are deleted in bulk
+	// This is called when a bot/self-bot uses the API
+	// endpoint specifically for deleting in bulk
+	d.AddHandler(messageDeleteBulk)
+
+	d.AddHandler(presenceUpdate)
+
+	d.AddHandler(presencesReplace)
+
+	d.AddHandler(userSettingsUpdate)
 
 	if err := d.Open(); err != nil {
 		panic(err)
