@@ -28,6 +28,7 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 
 	if m.ChannelID != currentChannel {
+		GetElementByCSS
 		return
 	}
 

@@ -42,7 +42,7 @@ func main() {
 	k, err := keyring.Get(AppName, "token")
 	if err != nil {
 		if err != keyring.ErrNotFound {
-			log.Fatalln(err.Error())
+			log.Println(err.Error())
 		}
 
 		if *token == "" {

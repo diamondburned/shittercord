@@ -15,9 +15,17 @@ func getUserData(m *discordgo.Message) (name string, color int) {
 		return
 	}
 
-	guild, err := d.State.Guild(m.GuildID)
+	channel, err := d.State.Channel(m.ChannelID)
 	if err != nil {
-		if guild, err = d.Guild(m.GuildID); err != nil {
+		if channel, err = d.Channel(m.ChannelID); err != nil {
+			log.Println(err)
+			return
+		}
+	}
+
+	guild, err := d.State.Guild(channel.GuildID)
+	if err != nil {
+		if guild, err = d.Guild(channel.GuildID); err != nil {
 			log.Println(err)
 			return
 		}
