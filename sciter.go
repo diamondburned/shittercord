@@ -23,7 +23,7 @@ func GetElementByCSS(css string) *sciter.Element {
 
 // SetHTML sets the innerHTML for the element
 func SetHTML(elem *sciter.Element, html string) {
-	elem.SetHtml(html, sciter.SOH_REPLACE)
+	elem.SetHtml(html, sciter.SIH_REPLACE_CONTENT)
 
 	elem.Update(false) // screen sometimes flashes white with false
 	// we'll see if this fixes it
