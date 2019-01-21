@@ -1,7 +1,10 @@
-<div class="message" id="{{ .ID }}">
+<div class="message {{ if .Blocked }}blocked{{ end }}" id="{{ .ID }}">
 	<img class="author-avatar icon" src="https://cdn.discordapp.com/avatars/{{ .AuthorID }}/{{ .AvatarName }}.png?size=64"></img>
 	<div class="message-container">
-		<div class="author" style="color: {{ .NameColor }}">{{ .DisplayName }}</div>
+		<div class="author" style="color: {{ .NameColor }}">
+			{{ .DisplayName }}
+			<div class="author-timestamp">{{ .Timestamp }}</div>
+		</div>
 		<div class="message-content">
 			{{ .Content }}
 		</div>

@@ -28,6 +28,10 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 	}
 
 	if m.ChannelID != currentChannel {
+		if m.GuildID != currentGuild {
+			return
+		}
+
 		if e := GetElementByCSS(fmt.Sprintf("#%d", m.ChannelID)); e != nil {
 			e.SetAttr("class", "channel unread")
 		}
@@ -51,21 +55,21 @@ func messageUpdate(s *discordgo.Session, m *discordgo.MessageUpdate) {
 		return
 	}
 
-	var (
-		elem = GetElementByCSS(fmt.Sprintf("#%d", m.ID))
-		html = messageToHTML(m.Message)
-	)
-
+	elem := GetElementByCSS(fmt.Sprintf("#%d", m.ID))
 	if elem == nil {
 		return
 	}
 
-	_lines := strings.Split(html, "\n")
+	_lines := strings.Split(
+		messageToHTML(m.Message), "\n",
+	)
 
 	SetHTML(
 		elem,
 		strings.Join(_lines[1:len(_lines)-2], "\n"),
 	)
+
+	elem.SetAttr("class", "message edited")
 }
 
 func messageDelete(s *discordgo.Session, m *discordgo.MessageDelete) {

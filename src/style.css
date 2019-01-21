@@ -242,6 +242,17 @@ p.category-name:hover {
 .author {
 	font-size: 0.9em;
 	font-weight: bold;
+	flow: horizontal;
+}
+
+.author-timestamp {
+	font-size: 0.75em;
+	font-weight: normal;
+	color: white;
+	opacity: 0.5;
+	margin-top: *;
+	margin-bottom: 1px;
+	margin-left: 0.5em;
 }
 
 .message-container {

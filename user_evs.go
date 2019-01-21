@@ -70,3 +70,13 @@ func userisBusy() bool {
 		return false
 	}
 }
+
+// Made to prevent messages with nil pointer for author name
+// returns username
+func safeAuthor(m *discordgo.Message) string {
+	if m.Author != nil {
+		return m.Author.Username
+	}
+
+	return "invalid user"
+}

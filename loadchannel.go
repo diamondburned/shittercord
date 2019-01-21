@@ -10,6 +10,7 @@ import (
 
 var (
 	currentChannel int64
+	currentGuild   int64
 )
 
 func loadMsgs(chID int64) {
@@ -19,6 +20,7 @@ func loadMsgs(chID int64) {
 		ch, err := d.State.Channel(chID)
 		if err == nil {
 			SetText(GetElementByCSS("#channel-name"), ch.Name)
+			currentGuild = ch.GuildID
 		}
 	}(chID)
 
@@ -39,10 +41,6 @@ func loadMsgs(chID int64) {
 	wg := sync.WaitGroup{}
 
 	for i, m := range msgs {
-		if rstore.Check(m.Author, RelationshipBlocked) {
-			continue
-		}
-
 		wg.Add(1)
 		go func(m *discordgo.Message, i int) {
 			defer wg.Done()
@@ -58,4 +56,11 @@ func loadMsgs(chID int64) {
 	)
 
 	currentChannel = chID
+
+	if _, err := w.Call(
+		"scrollToBottom",
+	); err != nil {
+		log.Println(err)
+		return
+	}
 }

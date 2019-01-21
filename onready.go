@@ -4,8 +4,6 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/davecgh/go-spew/spew"
-
 	"github.com/RumbleFrog/discordgo"
 )
 
@@ -94,8 +92,6 @@ func onReady(s *discordgo.Session, r *discordgo.Ready) {
 
 // ReflectStatusColor converts Discord status to HEX colors (#RRGGBB)
 func ReflectStatusColor(status discordgo.Status) string {
-	spew.Dump(status)
-
 	switch status {
 	case discordgo.StatusOnline:
 		return "#43b581"

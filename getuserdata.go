@@ -9,7 +9,7 @@ import (
 
 func getUserData(m *discordgo.Message) (name string, color int) {
 	color = 16711422
-	name = m.Author.Username
+	name = safeAuthor(m)
 
 	if d == nil {
 		return

@@ -3,29 +3,39 @@ package main
 import (
 	"html"
 	"log"
+	"time"
 
 	"github.com/sciter-sdk/go-sciter"
 )
 
 // GetElementByCSS gets element by CSS identifier (.css, etc)
-func GetElementByCSS(css string) *sciter.Element {
-	root, err := w.GetRootElement()
-	if err != nil {
-		return nil
+func GetElementByCSS(css string) (elem *sciter.Element) {
+	for i := 1; i < 3; i++ {
+		root, err := w.GetRootElement()
+		if err == nil {
+			elem, err = root.SelectUnique(css)
+			if err == nil {
+				break
+			}
+
+			log.Println(css, err)
+			goto Fail
+		}
+
+		log.Println(err)
+
+	Fail:
+		time.Sleep(time.Millisecond * 200)
 	}
 
-	elem, err := root.SelectUnique(css)
-	if err != nil {
-		return nil
-	}
-
-	return elem
+	return
 }
 
 // SetHTML sets the innerHTML for the element
 func SetHTML(elem *sciter.Element, html string) {
 	if elem == nil {
 		log.Println("elem is nil")
+		return
 	}
 
 	elem.SetHtml(html, sciter.SIH_REPLACE_CONTENT)

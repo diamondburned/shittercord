@@ -19,11 +19,15 @@ var (
 
 type messageTemplateData struct {
 	ID         int64
+	Timestamp  string
 	AuthorID   int64
 	AvatarName string
 
 	DisplayName string
 	NameColor   string
+
+	Blocked bool
+	Edited  bool
 
 	Content template.HTML
 

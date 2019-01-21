@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"html"
 	"html/template"
-	"log"
 	"regexp"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/RumbleFrog/discordgo"
 )
@@ -22,7 +22,7 @@ func messageToHTML(m *discordgo.Message) string {
 
 	var (
 		color   = 16711422
-		author  = m.Author.Username
+		author  = safeAuthor(m)
 		content = html.EscapeString(m.ContentWithMentionsReplaced())
 	)
 
@@ -48,11 +48,6 @@ func messageToHTML(m *discordgo.Message) string {
 				nameandID[2], format,
 			), 1,
 		)
-
-		log.Println(fmt.Sprintf(
-			`<img class="emoji" src="https://cdn.discordapp.com/emojis/%s.%s?v=1" />`,
-			nameandID[2], format,
-		))
 	}
 
 	wg.Wait()
@@ -64,6 +59,27 @@ func messageToHTML(m *discordgo.Message) string {
 		NameColor:   fmt.Sprintf("#%X", color),
 		DisplayName: html.EscapeString(author),
 		Content:     template.HTML(MDtoHTML(content)),
+		Blocked: func() bool {
+			if rstore.Check(m.Author, RelationshipBlocked) {
+				return true
+			}
+
+			return false
+		}(),
+		Timestamp: func() (ts string) {
+			stamp, err := m.Timestamp.Parse()
+			if err == nil {
+				ts = stamp.Format(time.Kitchen)
+
+				if m.EditedTimestamp != "" {
+					if stamp, err := m.EditedTimestamp.Parse(); err == nil {
+						ts += " (edited: " + stamp.Format(time.Kitchen) + ")"
+					}
+				}
+			}
+
+			return
+		}(),
 	}
 
 	return RenderToString(data)
