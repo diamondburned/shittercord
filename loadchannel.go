@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"sort"
 	"strings"
 	"sync"
 
@@ -24,19 +25,34 @@ func loadMsgs(chID int64) {
 		}
 	}(chID)
 
-	msgs, err := d.ChannelMessages(chID, 25, 0, 0, 0)
+	msgs := []*discordgo.Message{}
+
+	ch, err := d.State.Channel(chID)
+	if err == nil {
+		if len(ch.Messages) > 25 {
+			msgs = ch.Messages
+			goto Continue
+		}
+	}
+
+	msgs, err = d.ChannelMessages(chID, 25, 0, 0, 0)
 	if err != nil {
 		log.Println("Failed to fetch message", err)
 		return
 	}
 
+Continue:
 	messages := make([]string, len(msgs))
 
 	// reverse
-	for i := len(msgs)/2 - 1; i >= 0; i-- {
-		opp := len(msgs) - 1 - i
-		msgs[i], msgs[opp] = msgs[opp], msgs[i]
-	}
+	sort.Slice(msgs, func(i, j int) bool {
+		return msgs[i].ID < msgs[j].ID
+	})
+
+	//	for i := len(msgs)/2 - 1; i >= 0; i-- {
+	//		opp := len(msgs) - 1 - i
+	//		msgs[i], msgs[opp] = msgs[opp], msgs[i]
+	//	}
 
 	wg := sync.WaitGroup{}
 

@@ -2,6 +2,14 @@
 
 Discord client in Sciter native GUI framework
 
+## Installation
+
+1. `git clone https://gitlab.com/diamondburned/shittercord`
+2. `cd shittercord`
+3. `go get`
+4. `go run *.go -t <DISCORD TOKEN>` (if you have a Keyring Manager, you only need to pass in the token once)
+5. Optional: `go build && ./shittercord`
+
 ## Todo
 
 - [ ] Proper dialogs to warn if messages are sent or not
@@ -13,6 +21,7 @@ Discord client in Sciter native GUI framework
 - [ ] Fix `<pre><code>` having white spaces
 - [ ] Fix thumbnail-only embeds
 - [ ] **CRASH-RELATED** Ideally, messageEdit should only edit the `.message-content` part, as Author pointer could be `nil`
+- [ ] Implement `MessageAck` (acknowledgement) for read/unread messages
 - [x] Embeds and attachments support
 - [x] ~~Proper spinner for messages~~ Spinners weren't added, but idle messages
 

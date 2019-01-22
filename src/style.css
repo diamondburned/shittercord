@@ -1,5 +1,6 @@
 html {
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(25, 25, 25, 0.75);
+	window-frame: "transparent";
 }
 
 body {
@@ -69,7 +70,7 @@ div.separator {
 #topbar {
 	height: 50px;
 	flow: horizontal;
-	background-color: rgba(0, 0, 0, 0.45);
+	background-color: rgba(45, 45, 45, 0.45);
 	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
 }
 
@@ -286,7 +287,9 @@ p.category-name:hover {
 .message.blocked {
 	height: 2px;
 	overflow: hidden;
-	background-color: rgba(0, 0, 0, 0.05);
+	/*border-top: 1px solid rgba(0, 0, 0, 0.25);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25);*/
+	background-color: rgba(255, 0, 0, 0.05);
 }
 
 .author-avatar {
@@ -400,10 +403,12 @@ div.message-input {
 	width: 300px;
 	height: 50px;
 	border-radius: 8px;
-	margin: * 12px;
 }
 
 a.attachment-file-name {
+	height: 1*;
+	width: 1*;
+	margin: * 12px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -431,11 +436,15 @@ a.attachment-file-name {
 
 p.message-embed-title {
 	width: 1*;
-	word-wrap: break-word;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 .message-embed-main p, .message-embed-main a, .message-embed-main {
 	font-size: 10pt !important;
+	word-wrap: break-word;
+	width: 1*;
 }
 
 .message-embed-thumbnail {

@@ -176,6 +176,9 @@ func main() {
 		panic(err) // not panic when I find a way to do modal dialog
 	}
 
+	// Set a max message count to cache
+	d.State.MaxMessageCount = 50
+
 	defer d.Close()
 
 	// go WatchCSS()
