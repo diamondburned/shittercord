@@ -2,6 +2,8 @@
 
 Discord client in Sciter native GUI framework
 
+![](https://cdn.discordapp.com/attachments/361920025051004939/537151107680698370/unknown.png)
+
 ## Installation
 
 1. `git clone https://gitlab.com/diamondburned/shittercord`

@@ -1,8 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"html"
 	"log"
+	"runtime"
+	"strings"
 	"time"
 
 	"github.com/sciter-sdk/go-sciter"
@@ -47,4 +50,49 @@ func SetHTML(elem *sciter.Element, html string) {
 // Sciter's SetText function
 func SetText(elem *sciter.Element, text string) {
 	SetHTML(elem, html.EscapeString(text))
+}
+
+// WarnDialog .
+func WarnDialog(i ...interface{}) {
+	var (
+		printed []string
+		line    int
+		fn      string
+		unknown []interface{}
+	)
+
+	_, fn, line, _ = runtime.Caller(1)
+
+	for _, thing := range i {
+		switch thing.(type) {
+		case string:
+			printed = append(
+				printed,
+				thing.(string),
+			)
+		case error:
+			printed = append(
+				printed,
+				thing.(error).Error(),
+			)
+		default:
+			unknown = append(
+				unknown,
+				thing,
+			)
+		}
+	}
+
+	if len(unknown) > 1 {
+		log.Printf("%s:%d", fn, line)
+		log.Println(unknown...)
+	}
+
+	log.Println(
+		fmt.Sprintf(
+			"%s:%d: %s",
+			fn, line,
+			strings.Join(printed, "\n"),
+		),
+	)
 }

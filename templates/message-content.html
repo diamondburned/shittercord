@@ -5,12 +5,15 @@
 	<a class="attachment-img-a" href="{{ .Original }}">
 		<img class="attachment-img" src="{{ .URL }}" title="{{ .Name }} ({{ .Size }})" />
 	</a>
+	{{ else }} {{ if eq .MediaType "video" }}
+	<iframe class="attachment-video" src="{{ .URL }}" frameborder="0" />
+	<a class="sub-button" href="{{ .Original }}">View original</a>
 	{{ else }}
 	<div class="attachment-file">
 		<a class="attachment-file-name" href="{{ .Original }}">{{ .Name }}</a>
 		<p class="attachment-file-size">{{ .Size }}</p>
 	</div>
-	{{ end }}
+	{{ end }} {{ end }}
 </div>
 {{ end }}
 {{ range .Embeds }}
@@ -40,6 +43,11 @@
 			</div>
 			{{ end }}
 		</div>
+		{{ end }}
+
+		{{ if .VideoURL }}
+		<iframe class="message-embed-video" src="{{ .VideoURL }}" frameborder="0" />
+		<a class="sub-button" href="{{ .VideoOriginal }}">View original</a>
 		{{ end }}
 
 		<div class="message-embed-footer">

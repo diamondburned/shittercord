@@ -14,6 +14,10 @@ body {
 	margin: 0;
 }
 
+#alert {
+	background-color: black;
+}
+
 a {
 	color: #0096cf;
 	text-decoration: none;
@@ -354,7 +358,7 @@ img.emoji {
 	height: auto;
 	margin-left: .05em;
 	margin-right: .1em;
-	vertical-align: -.8em;
+	margin-bottom: -.4em;
 }
 
 /* SEND FIELD */
@@ -397,12 +401,18 @@ div.message-input {
 
 /* ATTACHMENTS */
 
-.message-attachments, img.attachment-img {
+.message-attachments, img.attachment-img, 
+iframe.message-embed-video, iframe.attachment-video {
 	max-width: 400px;
 	max-height: 300px;
 	width: auto;
 	height: auto;
 	margin-bottom: 5px;
+}
+
+iframe.message-embed-video, iframe.attachment-video {
+	width: *;
+	height: *;
 }
 
 .attachment-file {
@@ -463,6 +473,11 @@ p.message-embed-title {
 	max-height: 120px;
 	width: auto;
 	height: auto;
+}
+
+.message-embed-thumbnail img:not([width=""]) {
+	max-width: auto;
+	max-height: auto;
 }
 
 .message-embed-footer, .message-embed-author {

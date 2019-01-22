@@ -81,6 +81,10 @@ func contentToHTML(m *discordgo.Message) string {
 		go func(i int, e *discordgo.MessageEmbed) {
 			defer wg.Done()
 
+			if e.Color == 0 {
+				e.Color = 14408667
+			}
+
 			embed := messageEmbedTemplateData{
 				PillColor: fmt.Sprintf("#%X", e.Color),
 				Title:     e.Title,
@@ -117,9 +121,19 @@ func contentToHTML(m *discordgo.Message) string {
 				embed.ImageHeight = e.Image.Height
 			}
 
+			if e.Video != nil {
+				embed.VideoURL = e.Video.ProxyURL
+				embed.VideoOriginal = e.Video.URL
+			}
+
 			if e.Footer != nil {
 				embed.Footer = e.Footer.Text
 				embed.FooterIcon = e.Footer.ProxyIconURL
+			}
+
+			if e.Timestamp != "" {
+				embed.Footer += " - "
+				embed.Footer += e.Timestamp
 			}
 
 			data.Embeds[i] = embed

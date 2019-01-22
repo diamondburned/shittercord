@@ -43,10 +43,6 @@ func getUserData(m *discordgo.Message) (name string, color int) {
 		name = member.Nick
 	}
 
-	if m.Author.ID == 105738892371623936 {
-		name = "8D"
-	}
-
 	roles := guild.Roles
 	sort.Slice(roles, func(i, j int) bool {
 		return roles[i].Position > roles[j].Position
@@ -54,12 +50,9 @@ func getUserData(m *discordgo.Message) (name string, color int) {
 
 	for _, role := range roles {
 		for _, roleID := range member.Roles {
-			if role.ID == roleID {
-				if role.Color != 0 {
-					color = role.Color
-
-					return
-				}
+			if role.ID == roleID && role.Color != 0 {
+				color = role.Color
+				return
 			}
 		}
 	}

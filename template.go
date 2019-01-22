@@ -92,7 +92,9 @@ type messageEmbedTemplateData struct {
 	ImageWidth    int
 	ImageHeight   int
 
-	// Todo: video support
+	VideoURL      string
+	VideoOriginal string
+
 	// Todo: find out what Provider is
 }
 
