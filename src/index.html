@@ -1,12 +1,6 @@
 <html>
 
 <head>
-	<title>Ayy lmao</title>
-	<script type="text/tiscript">
-		if (view.connectToInspector) {
-			view.connectToInspector()
-		}
-	</script>
 	<style>
 		/*@import url(/home/diamond/Scripts/scitercord/src/style.css);*/
 	</style>
@@ -33,7 +27,6 @@
 			var r = view.dialog(#alert,"Hello world!");
 			stdout.println(r);        
 
-
 			scrollToBottom() 
 		})
 
@@ -48,10 +41,6 @@
 		}
 
 		$(.file-upload-button).on("~mouseup", function() {
-			const filter = "All Files (*)"
-			const initialPath = System.path(#USER_DOCUMENTS)
-			const caption = "Select file to open"
-		
 			var fn = view.selectFile($(.file-upload-button))
 
 			if (fn) 

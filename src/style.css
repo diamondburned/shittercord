@@ -395,13 +395,17 @@ div.message-input {
 	display: block;
 	size: 1* 40px;
 	flow: horizontal;
-	background: transparent;
+	background: rgba(0, 0, 0, 0);
 	border: none;
 	color: white;
 }
 
 .message-input-area>* {
 	margin: * 0;
+}
+
+textarea.message-input-area {
+	text-selection-caret-color: white;
 }
 
 /* ATTACHMENTS */

@@ -44,6 +44,7 @@ func MDtoHTML(md string) string {
 		string(
 			blackfriday.Run(
 				[]byte(md),
+				blackfriday.WithNoExtensions(),
 				blackfriday.WithExtensions(mdExtensions),
 				blackfriday.WithRenderer(Renderer),
 			),
