@@ -14,7 +14,7 @@ import (
 
 var (
 	// EmojiRegex to get emoji IDs
-	EmojiRegex = regexp.MustCompile(`&lt;(.*?):.*?:(\d+)&gt;`)
+	EmojiRegex = regexp.MustCompile(`<(.*?):.*?:(\d+)>`)
 )
 
 func parseEmojis(content string) string {
