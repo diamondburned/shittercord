@@ -26,6 +26,9 @@ Discord client in Sciter native GUI framework
 - [ ] Implement `MessageAck` (acknowledgement) for read/unread messages
 - [ ] Add in mini handlers to change the global variables eg. Settings
 - [ ] Add in a method of guaranteeing message order, as parsing messages with code is considerably slower
+- [ ] Hide channels that can't be seen
+- [ ] A different symbol for NSFW channels
+- [ ] Pack all HTML/CSS materials in the binary
 - [x] Added syntax highlighting
 - [x] **CRASH-RELATED** Ideally, messageEdit should only edit the `.message-content` part, as Author pointer could be `nil`
 - [x] Embeds and attachments support
