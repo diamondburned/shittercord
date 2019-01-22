@@ -410,12 +410,13 @@ textarea.message-input-area {
 
 /* ATTACHMENTS */
 
-.message-attachments, img.attachment-img, 
+.message-attachments, .attachment-img, 
 iframe.message-embed-video, iframe.attachment-video {
 	max-width: 400px;
 	max-height: 300px;
 	width: auto;
 	height: auto;
+	foreground-size: auto;
 	margin-bottom: 5px;
 }
 
