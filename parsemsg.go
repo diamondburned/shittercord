@@ -49,7 +49,7 @@ func contentToHTML(m *discordgo.Message) string {
 	}
 
 	data.Content = template.HTML(
-		arseEmojis(MDtoHTML(content)),
+		parseEmojis(MDtoHTML(content)),
 	)
 
 	for i, a := range m.Attachments {
