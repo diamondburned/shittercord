@@ -64,3 +64,90 @@ Replaces the latest message of yours, same as Discord's `s/string1/string2`
 
 - Usage: `/replace[All] [string] [string to replace with]`
 
+### CSS
+
+#### Injecting
+
+You can currently inject a CSS file with the `-css` flag, followed by the file path. Do note that this feature is untested, and you might need `!important`. It is also important to point out that Sciter's CSS is not like other browser's CSS.
+
+##### Resources
+
+- [Almost all CSS properties](https://sciter.com/docs/content/css/cssmap.html)
+- [HTML's flex vs Sciter's flow](https://terrainformatica.com/w3/flex-layout/flex-vs-flexbox.htm)
+
+#### Background color
+
+```css
+html {
+	/* 
+		This controls the entire window's background color,
+		including chat messages, channel boxes, etc
+	*/
+	background-color: rgba(25, 25, 25, 0.75);
+
+	/*
+		This element is redundant on Linux, not sure what
+		it does on Windows 
+	*/
+	window-frame: "transparent";
+}
+```
+
+#### Fonts
+
+```css
+/* Formal fonts for the app */
+body {
+	/*
+		This is the default font list for the UI. Worth pointing
+		out that Sciter is a bit retarded with the font fallback,
+		so things might be missing glyphs. You might also need an
+		!important on this one.
+	*/
+	font-family: "Overpass", "Segoe UI", "Helvetica", "Source Sans Pro", "Noto Sans", sans-serif;
+}
+
+/* Monospaced fonts for code/fenced code */
+pre, code {
+	/* 
+		Might also need !important
+	*/
+	font-family: "Noto Sans Mono", monospace;
+}
+```
+
+#### Top bar color
+
+```css
+/* ID for topbar */
+#topbar {
+	/*
+		The top bar's background color. It has alpha, as
+		the default style is a transparent one.
+	*/
+	background-color: rgba(45, 45, 45, 0.45);
+
+	/*
+		Self-explanatory, it's the same as HTML's CSS
+	*/
+	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
+}
+```
+
+#### Hiding blocked messages
+
+```css
+.message.blocked {
+	/*
+		The original properties for blocked messages:
+			height: 2px;
+			overflow: hidden;
+
+		This hides the blocked messages in a barely
+		distinguishable/clickable box cleanly.
+	*/
+
+	/* The actual code to hide blocked messages */
+	display: none;
+}
+```
