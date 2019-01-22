@@ -32,6 +32,8 @@ var (
 )
 
 func init() {
+	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+
 	var (
 		messageTemplateFile, _        = tplBox.FindString("message.html")
 		messageContentTemplateFile, _ = tplBox.FindString("message-content.html")
