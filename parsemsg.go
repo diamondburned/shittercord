@@ -43,7 +43,7 @@ func parseEmojis(content string) string {
 func contentToHTML(m *discordgo.Message) string {
 	wg := sync.WaitGroup{}
 
-	content := html.EscapeString(m.ContentWithMentionsReplaced())
+	content := m.ContentWithMentionsReplaced()
 	data := messageContentTemplateData{
 		Attachments: make([]messageAttachmentTemplateData, len(m.Attachments)),
 		Embeds:      make([]messageEmbedTemplateData, len(m.Embeds)),
@@ -92,9 +92,7 @@ func contentToHTML(m *discordgo.Message) string {
 				Description: template.HTML(
 					MDtoHTML(
 						parseEmojis(
-							html.EscapeString(
-								e.Description,
-							),
+							e.Description,
 						),
 					),
 				),

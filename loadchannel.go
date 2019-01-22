@@ -35,7 +35,7 @@ func loadMsgs(chID int64) {
 		}
 	}
 
-	msgs, err = d.ChannelMessages(chID, 25, 0, 0, 0)
+	msgs, err = d.ChannelMessages(chID, 50, 0, 0, 0)
 	if err != nil {
 		log.Println("Failed to fetch message", err)
 		return
