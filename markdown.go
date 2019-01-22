@@ -2,7 +2,6 @@ package main
 
 import (
 	"io"
-	"log"
 	"strings"
 
 	"github.com/alecthomas/chroma"
@@ -49,8 +48,6 @@ func MDtoHTML(md string) string {
 			blackfriday.WithRenderer(Renderer),
 		),
 	)
-
-	log.Println(s)
 
 	return s
 }
