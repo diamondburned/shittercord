@@ -43,3 +43,24 @@ Discord client in Sciter native GUI framework
 	- Sciter isn't a browser (like Electron), thus stuff like hljs won't work
 	- I might implement this when there's a plugin for it in Go
 
+## Documentation
+
+### [Inline commands](https://gitlab.com/diamondburned/shittercord/blob/master/sendmessage.go)
+
+#### `/embed`
+
+- Usage: `/embed [OPTIONS] [DESCRIPTION]`
+- Options: 
+	- `-t|--title` - title
+	- `-a|--author` - author's name
+	- `--authorURL` - author's URL (hyperlink)
+	- `--authorImage` - author's Image
+	- `-f|--footer` - footer text
+	- `-th|--thumbnail` - embed thumbnail, URL
+
+#### `/replace|/replaceAll`
+
+Replaces the latest message of yours, same as Discord's `s/string1/string2`
+
+- Usage: `/replace[All] [string] [string to replace with]`
+
