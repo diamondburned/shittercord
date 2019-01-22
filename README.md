@@ -12,6 +12,7 @@ Discord client in Sciter native GUI framework
 - [ ] Scroll up to load more
 - [ ] Fix `<pre><code>` having white spaces
 - [ ] Fix thumbnail-only embeds
+- [ ] **CRASH-RELATED** Ideally, messageEdit should only edit the `.message-content` part, as Author pointer could be `nil`
 - [x] Embeds and attachments support
 - [x] ~~Proper spinner for messages~~ Spinners weren't added, but idle messages
 

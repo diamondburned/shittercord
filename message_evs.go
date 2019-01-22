@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"strings"
 	"sync"
 
 	"github.com/RumbleFrog/discordgo"
@@ -60,13 +59,9 @@ func messageUpdate(s *discordgo.Session, m *discordgo.MessageUpdate) {
 		return
 	}
 
-	_lines := strings.Split(
-		messageToHTML(m.Message), "\n",
-	)
-
 	SetHTML(
-		elem,
-		strings.Join(_lines[1:len(_lines)-2], "\n"),
+		elem.MustSelectUnique(".message-content"),
+		contentToHTML(m.Message),
 	)
 
 	elem.SetAttr("class", "message edited")

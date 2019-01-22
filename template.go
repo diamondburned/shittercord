@@ -12,6 +12,9 @@ var (
 	// Data: messageTemplateData
 	messageTemplate = template.Must(template.ParseFiles("templates/message.html"))
 
+	// Data: messageContentTemplateData
+	messageContentTemplate = template.Must(template.ParseFiles("templates/message-content.html"))
+
 	// Data: []guildsTemplateData
 	guildTemplate = template.Must(template.ParseFiles("templates/guilds.html"))
 
@@ -31,12 +34,14 @@ type messageTemplateData struct {
 	Blocked bool
 	Edited  bool
 
+	Message template.HTML
+}
+
+type messageContentTemplateData struct {
 	Content template.HTML
 
 	Attachments []messageAttachmentTemplateData
 	Embeds      []messageEmbedTemplateData
-
-	// Todo: embed
 }
 
 type MediaType string
@@ -121,6 +126,8 @@ func RenderToString(data interface{}) string {
 	switch data.(type) {
 	case messageTemplateData:
 		err = messageTemplate.Execute(&b, data)
+	case messageContentTemplateData:
+		err = messageContentTemplate.Execute(&b, data)
 	case []guildsTemplateData:
 		err = guildTemplate.Execute(&b, data)
 	case []categoriesTemplateData:

@@ -72,10 +72,7 @@
 		}
 
 		function smartScroll() {
-			var msgs = $(.messages)
-			var maxScroll = msgs.box(#height,#content) - msgs.box(#height,#client)
-
-			if (msgs.scroll(#top) * 100 / maxScroll > 95) {
+			if ($(.messages).scroll(#bottom) < 500) {
 				scrollToBottom()
 			}
 		}

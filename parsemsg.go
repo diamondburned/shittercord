@@ -40,26 +40,17 @@ func parseEmojis(content string) string {
 	return content
 }
 
-func messageToHTML(m *discordgo.Message) string {
+func contentToHTML(m *discordgo.Message) string {
 	wg := sync.WaitGroup{}
 
-	var (
-		color   = 16711422
-		author  = safeAuthor(m)
-		content = html.EscapeString(m.ContentWithMentionsReplaced())
-		data    = messageTemplateData{
-			Attachments: make([]messageAttachmentTemplateData, len(m.Attachments)),
-			Embeds:      make([]messageEmbedTemplateData, len(m.Embeds)),
-		}
-	)
-
-	wg.Add(1)
-	go func(m *discordgo.Message) {
-		defer wg.Done()
-		author, color = getUserData(m)
-	}(m)
+	content := html.EscapeString(m.ContentWithMentionsReplaced())
+	data := messageContentTemplateData{
+		Attachments: make([]messageAttachmentTemplateData, len(m.Attachments)),
+		Embeds:      make([]messageEmbedTemplateData, len(m.Embeds)),
+	}
 
 	content = parseEmojis(content)
+	data.Content = template.HTML(MDtoHTML(content))
 
 	for i, a := range m.Attachments {
 		wg.Add(1)
@@ -137,14 +128,32 @@ func messageToHTML(m *discordgo.Message) string {
 
 	wg.Wait()
 
-	data.ID = m.ID
-	data.AuthorID = m.Author.ID
-	data.AvatarName = m.Author.Avatar
-	data.NameColor = fmt.Sprintf("#%X", color)
-	data.DisplayName = html.EscapeString(author)
-	data.Content = template.HTML(MDtoHTML(content))
+	return RenderToString(data)
+}
 
-	data.Blocked = func() bool {
+func messageToHTML(m *discordgo.Message) string {
+	wg := sync.WaitGroup{}
+
+	var (
+		color   = 16711422
+		author  = safeAuthor(m)
+		message = messageTemplateData{}
+	)
+
+	wg.Add(1)
+	go func(m *discordgo.Message) {
+		defer wg.Done()
+		author, color = getUserData(m)
+	}(m)
+
+	message.ID = m.ID
+
+	if m.Author != nil {
+		message.AuthorID = m.Author.ID
+		message.AvatarName = m.Author.Avatar
+	}
+
+	message.Blocked = func() bool {
 		if rstore.Check(m.Author, RelationshipBlocked) {
 			return true
 		}
@@ -152,7 +161,7 @@ func messageToHTML(m *discordgo.Message) string {
 		return false
 	}()
 
-	data.Timestamp = func() (ts string) {
+	message.Timestamp = func() (ts string) {
 		stamp, err := m.Timestamp.Parse()
 		if err == nil {
 			ts = stamp.Format(time.Kitchen)
@@ -167,5 +176,14 @@ func messageToHTML(m *discordgo.Message) string {
 		return
 	}()
 
-	return RenderToString(data)
+	message.Message = template.HTML(
+		contentToHTML(m),
+	)
+
+	wg.Wait()
+
+	message.NameColor = fmt.Sprintf("#%X", color)
+	message.DisplayName = html.EscapeString(author)
+
+	return RenderToString(message)
 }

@@ -1,9 +1,14 @@
+html {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
 body {
 	/* Styles */
 	font-family: "Overpass", "Segoe UI", "Helvetica", "Source Sans Pro", "Noto Sans", sans-serif;
 	font-size: 12pt;
 	display: block;
-	background-color: #282828;
+	/*background-color: #282828;*/
+	window-blurbehind: "ultra-dark";
 	color: #dbdbdb;
 	margin: 0;
 }
@@ -64,8 +69,8 @@ div.separator {
 #topbar {
 	height: 50px;
 	flow: horizontal;
-	background-color: #383838;
-	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.45);
+	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.35);
 }
 
 #topbar .left {
@@ -84,11 +89,16 @@ div.separator {
 img.topbar-guild-button {
 	margin: *;
 	border-spacing: *;
+	width: 1*;
+	height: *;
 }
 
 .topbar-guild-name {
+	width: 1*;
+	height: 1.5em;
+	padding: * 0;
 	white-space: nowrap;
-	/*overflow: hidden; this breaks the guild name*/
+	overflow: hidden;
 	text-overflow: ellipsis;
 }
 
@@ -106,6 +116,15 @@ img.topbar-guild-button {
 	border-spacing: *;
 }
 
+#topbar .right .topbar-channel-name {
+	width: 1*;
+	height: 1.5em;
+	padding: * 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
 #topbar .right .topbar-channel-name:not(:empty)::before {
 	content: "#";
 }
@@ -117,6 +136,12 @@ img.topbar-guild-button {
 
 #topbar .right .topbar-userinfo .userinfo-username {
 	margin-right: 0.5em;
+	width: 1*;
+	height: 1.5em;
+	padding: * 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
 #topbar .right .topbar-userinfo .userinfo-avatar {
@@ -256,18 +281,18 @@ p.category-name:hover {
 	width: *;
 	font-size: 11pt;
 	flow: horizontal;
-	border-top: 1px solid rgba(0, 0, 0, 0.25);
-	margin-bottom: 7px;
 }
 
 .message.blocked {
 	height: 2px;
 	overflow: hidden;
+	background-color: rgba(0, 0, 0, 0.05);
 }
 
 .author-avatar {
 	margin: 12px;
 	margin-right: 10px;
+	margin-bottom: 5px;
 	background-size: cover;
 }
 
@@ -296,6 +321,7 @@ img.author-avatar[src=""] {
 	width: 1*;
 	flow: vertical;
 	margin-top: 10px;
+	margin-bottom: 5px;
 }
 
 .message-content {
@@ -312,10 +338,13 @@ img.author-avatar[src=""] {
 }
 
 .emoji {
-	size: 1.45em 1.45em;
+	max-width: 1.45em;
+	max-height: 1.45em;
+	width: auto;
+	height: auto;
 	margin-left: .05em;
 	margin-right: .1em;
-	vertical-align: -.4em;
+	vertical-align: -.8em;
 }
 
 /* SEND FIELD */
@@ -324,6 +353,7 @@ div.message-input {
 	flow: horizontal;
 	height: 40px;
 	width: 90%%;
+	margin-top: 7px;
 	margin: 5px 5px;
 	background-color: rgba(0, 0, 0, 0.25);
 	border-radius: 20px;
@@ -359,7 +389,7 @@ div.message-input {
 
 .message-attachments, .message-attachments img {
 	max-width: 400px;
-	max-height: 500px;
+	max-height: 300px;
 	width: auto;
 	height: auto;
 	margin-bottom: 5px;

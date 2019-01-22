@@ -131,11 +131,7 @@ func main() {
 			return nil
 		}
 
-		go func(content string) {
-			if _, err := d.ChannelMessageSend(currentChannel, content); err != nil {
-				log.Println(err)
-			}
-		}(args[0].String())
+		go sendMessage(args[0].String())
 
 		return nil
 	})
@@ -167,14 +163,17 @@ func main() {
 	// endpoint specifically for deleting in bulk
 	d.AddHandler(messageDeleteBulk)
 
+	// These 2 following functions are currently deprecated
+	// They're never called, and they don't have an use
 	d.AddHandler(presenceUpdate)
-
 	d.AddHandler(presencesReplace)
 
+	// This function is called when the user updates their settings
+	// That includes status changes (online, busy, etc)
 	d.AddHandler(userSettingsUpdate)
 
 	if err := d.Open(); err != nil {
-		panic(err)
+		panic(err) // not panic when I find a way to do modal dialog
 	}
 
 	defer d.Close()
