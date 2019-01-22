@@ -29,6 +29,7 @@ Discord client in Sciter native GUI framework
 - [ ] Hide channels that can't be seen
 - [ ] A different symbol for NSFW channels
 - [ ] Pack all HTML/CSS materials in the binary
+- [ ] Better timestamping, remove the edited part from timestamps and use `.message-content:edited`
 - [x] Added syntax highlighting
 - [x] **CRASH-RELATED** Ideally, messageEdit should only edit the `.message-content` part, as Author pointer could be `nil`
 - [x] Embeds and attachments support
