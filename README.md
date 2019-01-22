@@ -15,6 +15,7 @@ Discord client in Sciter native GUI framework
 
 ## Todo
 
+- [ ] **IMPORTANT!** Do a CI build to push releases built with Ubuntu Base, Gtk and `sciter-sdk`
 - [ ] Author ID in the `message-author` div
 	- [ ] Author's name should be clickable to add their mention ID into chat `<@ID>`
 	- [ ] Author's avatar should open a popup containing their info
