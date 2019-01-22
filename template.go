@@ -10,16 +10,16 @@ import (
 
 var (
 	// Data: messageTemplateData
-	messageTemplate = template.Must(template.ParseFiles("templates/message.html"))
+	messageTemplate *template.Template
 
 	// Data: messageContentTemplateData
-	messageContentTemplate = template.Must(template.ParseFiles("templates/message-content.html"))
+	messageContentTemplate *template.Template
 
 	// Data: []guildsTemplateData
-	guildTemplate = template.Must(template.ParseFiles("templates/guilds.html"))
+	guildTemplate *template.Template
 
 	// Data: []categoriesTemplateData
-	channelsTemplate = template.Must(template.ParseFiles("templates/channels.html"))
+	channelsTemplate *template.Template
 )
 
 type messageTemplateData struct {

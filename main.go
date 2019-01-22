@@ -2,10 +2,12 @@ package main
 
 import (
 	"flag"
+	"html/template"
 	"log"
 	"strconv"
 
 	"github.com/RumbleFrog/discordgo"
+	packr "github.com/gobuffalo/packr/v2"
 
 	"github.com/sciter-sdk/go-sciter"
 	"github.com/sciter-sdk/go-sciter/window"
@@ -24,10 +26,34 @@ var (
 	w *window.Window
 
 	d *discordgo.Session
+
+	tplBox = packr.New("Templates", "./templates")
+	srcBox = packr.New("Sources", "./src")
 )
 
 func init() {
-	log.SetFlags(log.Ldate | log.Ltime | log.Lshortfile)
+	var (
+		messageTemplateFile, _        = tplBox.FindString("message.html")
+		messageContentTemplateFile, _ = tplBox.FindString("message-content.html")
+		guildTemplateFile, _          = tplBox.FindString("guilds.html")
+		channelsTemplateFile, _       = tplBox.FindString("channels.html")
+	)
+
+	messageTemplate = template.Must(
+		template.New("messageTemplate").Parse(messageTemplateFile),
+	)
+
+	messageContentTemplate = template.Must(
+		template.New("messageContentTemplate").Parse(messageContentTemplateFile),
+	)
+
+	guildTemplate = template.Must(
+		template.New("guildTemplate").Parse(guildTemplateFile),
+	)
+
+	channelsTemplate = template.Must(
+		template.New("channelsTemplate").Parse(channelsTemplateFile),
+	)
 }
 
 func main() {
@@ -86,7 +112,13 @@ func main() {
 		log.Fatal(err)
 	}
 
-	w.LoadFile("src/index.html")
+	var (
+		html, _ = srcBox.FindString("index.html")
+		css, _  = srcBox.FindString("style.css")
+	)
+
+	w.LoadHtml(html, "")
+	w.SetCSS(css, "", "text/css")
 
 	w.DefineFunction("loadguild", func(args ...*sciter.Value) *sciter.Value {
 		if len(args) < 1 {
