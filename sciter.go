@@ -42,7 +42,7 @@ func SetHTML(elem *sciter.Element, html string) {
 	}
 
 	elem.SetHtml(html, sciter.SIH_REPLACE_CONTENT)
-	//elem.Update(true) // screen sometimes flashes white with false
+	elem.Update(true) // screen sometimes flashes white with false
 	// we'll see if this fixes it
 }
 

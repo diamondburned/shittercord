@@ -348,12 +348,12 @@ img.author-avatar[src=""] {
 	padding-right: 1em;
 	margin-bottom: 5px;
 	overflow-wrap: break-word;
-	word-wrap: break-word;
 }
 
 .message-content p {
 	margin: 0;
 	display: inline-block;
+	white-space: pre-wrap;
 }
 
 img.emoji {

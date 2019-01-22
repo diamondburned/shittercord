@@ -2,6 +2,7 @@ package main
 
 import (
 	"io"
+	"log"
 	"strings"
 
 	"github.com/alecthomas/chroma"
@@ -40,16 +41,18 @@ var (
 // with syntax highlighting using the Chroma
 // renderer
 func MDtoHTML(md string) string {
-	return strings.TrimSpace(
-		string(
-			blackfriday.Run(
-				[]byte(md),
-				blackfriday.WithNoExtensions(),
-				blackfriday.WithExtensions(mdExtensions),
-				blackfriday.WithRenderer(Renderer),
-			),
+	s := string(
+		blackfriday.Run(
+			[]byte(strings.TrimSpace(md)),
+			blackfriday.WithNoExtensions(),
+			blackfriday.WithExtensions(mdExtensions),
+			blackfriday.WithRenderer(Renderer),
 		),
 	)
+
+	log.Println(s)
+
+	return s
 }
 
 // NewChromaRenderer creates a new syntax highlight renderer

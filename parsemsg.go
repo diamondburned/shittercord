@@ -14,7 +14,7 @@ import (
 
 var (
 	// EmojiRegex to get emoji IDs
-	EmojiRegex = regexp.MustCompile(`<(.*?):.*?:(\d+)>`)
+	EmojiRegex = regexp.MustCompile(`&lt;(.*?):.*?:(\d+)&gt;`)
 )
 
 func parseEmojis(content string) string {
@@ -48,8 +48,9 @@ func contentToHTML(m *discordgo.Message) string {
 		Embeds:      make([]messageEmbedTemplateData, len(m.Embeds)),
 	}
 
-	content = parseEmojis(content)
-	data.Content = template.HTML(MDtoHTML(content))
+	data.Content = template.HTML(
+		arseEmojis(MDtoHTML(content)),
+	)
 
 	for i, a := range m.Attachments {
 		wg.Add(1)
@@ -176,12 +177,6 @@ func messageToHTML(m *discordgo.Message) string {
 		stamp, err := m.Timestamp.Parse()
 		if err == nil {
 			ts = stamp.Format(time.Kitchen)
-
-			if m.EditedTimestamp != "" {
-				if stamp, err := m.EditedTimestamp.Parse(); err == nil {
-					ts += " (edited: " + stamp.Format(time.Kitchen) + ")"
-				}
-			}
 		}
 
 		return
