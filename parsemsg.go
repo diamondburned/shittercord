@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"html"
 	"html/template"
 	"regexp"
 	"strings"
@@ -195,7 +194,7 @@ func messageToHTML(m *discordgo.Message) string {
 	wg.Wait()
 
 	message.NameColor = fmt.Sprintf("#%X", color)
-	message.DisplayName = html.EscapeString(author)
+	message.DisplayName = author
 
 	return RenderToString(message)
 }

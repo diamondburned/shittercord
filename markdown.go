@@ -2,6 +2,7 @@ package main
 
 import (
 	"io"
+	"strings"
 
 	"github.com/alecthomas/chroma"
 	"github.com/alecthomas/chroma/formatters/html"
@@ -39,11 +40,13 @@ var (
 // with syntax highlighting using the Chroma
 // renderer
 func MDtoHTML(md string) string {
-	return string(
-		blackfriday.Run(
-			[]byte(md),
-			blackfriday.WithExtensions(mdExtensions),
-			blackfriday.WithRenderer(Renderer),
+	return strings.TrimSpace(
+		string(
+			blackfriday.Run(
+				[]byte(md),
+				blackfriday.WithExtensions(mdExtensions),
+				blackfriday.WithRenderer(Renderer),
+			),
 		),
 	)
 }

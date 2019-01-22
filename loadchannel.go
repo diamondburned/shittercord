@@ -25,23 +25,12 @@ func loadMsgs(chID int64) {
 		}
 	}(chID)
 
-	msgs := []*discordgo.Message{}
-
-	ch, err := d.State.Channel(chID)
-	if err == nil {
-		if len(ch.Messages) > 25 {
-			msgs = ch.Messages
-			goto Continue
-		}
-	}
-
-	msgs, err = d.ChannelMessages(chID, 50, 0, 0, 0)
+	msgs, err := d.ChannelMessages(chID, 50, 0, 0, 0)
 	if err != nil {
 		log.Println("Failed to fetch message", err)
 		return
 	}
 
-Continue:
 	messages := make([]string, len(msgs))
 
 	// reverse
