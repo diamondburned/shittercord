@@ -22,6 +22,7 @@ Discord client in Sciter native GUI framework
 - [ ] Fix thumbnail-only embeds
 - [ ] **CRASH-RELATED** Ideally, messageEdit should only edit the `.message-content` part, as Author pointer could be `nil`
 - [ ] Implement `MessageAck` (acknowledgement) for read/unread messages
+- [ ] Add in mini handlers to change the global variables eg. Settings
 - [x] Embeds and attachments support
 - [x] ~~Proper spinner for messages~~ Spinners weren't added, but idle messages
 

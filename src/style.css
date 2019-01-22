@@ -29,11 +29,18 @@ a:visited {
 }
 
 pre, code, pre code {
+	padding: 2px;
 	font-family: "Noto Sans Mono", monospace;
+	word-wrap: break-word;
+	display: inline-block;
+	width: 1*;
+	overflow-wrap: break-word;
+	word-wrap: break-word;
 }
 
 pre code {
 	background-color: rgba(0, 0, 0, 0.15);
+	padding: 4px;
 }
 
 div.separator {
@@ -340,7 +347,7 @@ img.author-avatar[src=""] {
 	display: inline-block;
 }
 
-.emoji {
+img.emoji {
 	max-width: 1.45em;
 	max-height: 1.45em;
 	width: auto;
@@ -390,7 +397,7 @@ div.message-input {
 
 /* ATTACHMENTS */
 
-.message-attachments, .message-attachments img {
+.message-attachments, img.attachment-img {
 	max-width: 400px;
 	max-height: 300px;
 	width: auto;
