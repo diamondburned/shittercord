@@ -17,14 +17,14 @@ Discord client in Sciter native GUI framework
 - [ ] Proper dialogs to warn if messages are sent or not
 - [ ] Fix possible graphical glitches
 - [ ] Min and max height in plaintext
-- [ ] `/` for commands
+- [ ] `/` for commands (untested)
 - [ ] Add a small subtitle for current presence status
 - [ ] Scroll up to load more
 - [ ] Fix `<pre><code>` having white spaces
 - [ ] Fix thumbnail-only embeds
-- [ ] **CRASH-RELATED** Ideally, messageEdit should only edit the `.message-content` part, as Author pointer could be `nil`
 - [ ] Implement `MessageAck` (acknowledgement) for read/unread messages
 - [ ] Add in mini handlers to change the global variables eg. Settings
+- [x] **CRASH-RELATED** Ideally, messageEdit should only edit the `.message-content` part, as Author pointer could be `nil`
 - [x] Embeds and attachments support
 - [x] ~~Proper spinner for messages~~ Spinners weren't added, but idle messages
 
