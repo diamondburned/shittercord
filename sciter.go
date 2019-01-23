@@ -96,3 +96,12 @@ func WarnDialog(i ...interface{}) {
 		),
 	)
 }
+
+func handleEmojis(pattern string) {
+	fuzzied := FuzzyRemoveDups(strings.TrimPrefix(pattern, ":"), emojis)
+
+	SetHTML(
+		GetElementByCSS(".autosuggestions"),
+		fuzzied.ConstructAutocompletions(),
+	)
+}

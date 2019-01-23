@@ -9,6 +9,7 @@ import (
 
 var (
 	UserSettings *discordgo.Settings
+	emojis       []*discordgo.Emoji
 )
 
 func onReady(s *discordgo.Session, r *discordgo.Ready) {
@@ -88,6 +89,10 @@ func onReady(s *discordgo.Session, r *discordgo.Ready) {
 		GetElementByCSS(".bottom-grid-wrap"),
 		RenderToString(tpl),
 	)
+
+	for _, guild := range d.State.Guilds {
+		emojis = append(emojis, guild.Emojis...)
+	}
 }
 
 // ReflectStatusColor converts Discord status to HEX colors (#RRGGBB)

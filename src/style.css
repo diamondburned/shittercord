@@ -366,6 +366,43 @@ img.emoji {
 	margin-bottom: -.4em;
 }
 
+/* AUTOCOMPLETION FIELD */
+
+.autosuggestions {
+	height: auto;
+	transition: height(quad-in, 0.25s);
+	margin: 5px 5px;
+}
+
+.autosuggestion {
+	flow: horizontal;
+	cursor: pointer;
+	width: *;
+	padding: 5px;
+	border-radius: 1px;
+}
+
+.autosuggestion:hover {
+	transition: background-color(quint-out, 0.15s);
+	background-color: rgba(0, 0, 0, 0.25);
+}
+
+.autosuggestion:active {
+	background-color: rgba(0, 0, 0, 0.15);
+}
+
+.autosuggestion-emoji {
+	width: 1.45em;
+	height: 1.45em;
+	foreground-size: cover;
+}
+
+p.autosuggestion-subtitle {
+	margin: 0;
+	width: 1*;
+	text-align: right;
+}
+
 /* SEND FIELD */
 
 div.message-input {

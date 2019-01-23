@@ -63,6 +63,19 @@
 			scrollToBottom()
 		}
 
+		event click $(.autosuggestion) {
+			var input = $(.message-input-area)
+			var thing = input.value
+			var wordRemoved = thing.substring(0, thing.lastIndexOf(" "))
+
+			stdout.println(wordRemoved)
+
+				wordRemoved += " " + this.id + " "
+			
+			input.value = wordRemoved
+			$(.autosuggestions).clear()
+		}
+
 		function scrollToBottom() {
 			var msgs = $(.messages)
 			self.update(false)
@@ -89,8 +102,14 @@
 
 				this.value = ""
 
-				return true; 
+				return true;
 			}
+		})
+
+		$(.message-input-area).on("change", function(evt) {
+			/*$(.autosuggestions).clear()*/
+			var input = this.value
+			view.fuzzy(input)
 		})
 	</script>
 </head>
@@ -125,10 +144,34 @@
 			<div class="messages">
 				<div class="warn-message">No messages yet...</div>
 			</div>
-			<div class="message-input">
-				<img class="file-upload-button" src="https://github.com/google/material-design-icons/raw/master/content/1x_web/ic_add_circle_white_24dp.png"></img>
-				<textarea type="text" value="" class="message-input-area" maxlength="2048" />
-				<img class="emoji-button" src="https://github.com/google/material-design-icons/raw/master/image/1x_web/ic_tag_faces_white_36dp.png"></img>
+			<div class="bottom-pane">
+				<div class="autosuggestions">
+					<div class="autosuggestion" id="<:thonkmad:451162399417040897>">
+						<img class="emoji" src="https://cdn.discordapp.com/emojis/451162399417040897.png?v=1" />
+						:thonkmad:
+						<p class="autosuggestion-subtitle">r/unixhentai</p>
+					</div>
+					<div class="autosuggestion" id="<:thonkmad:451162399417040897>"
+>						<img class="emoji" src="https://cdn.discordapp.com/emojis/451162399417040897.png?v=1" />
+						:thonkmad:
+						<p class="autosuggestion-subtitle">r/unixhentai</p>
+					</div>
+					<div class="autosuggestion" id="<:thonkmad:451162399417040897>">
+						<img class="emoji" src="https://cdn.discordapp.com/emojis/451162399417040897.png?v=1" />
+						:thonkmad:
+						<p class="autosuggestion-subtitle">r/unixhentai</p>
+					</div>
+					<div class="autosuggestion" id="<:thonkmad:451162399417040897>">
+						<img class="emoji" src="https://cdn.discordapp.com/emojis/451162399417040897.png?v=1" />
+						:thonkmad:
+						<p class="autosuggestion-subtitle">r/unixhentai</p>
+					</div>
+				</div>
+				<div class="message-input">
+					<img class="file-upload-button" src="https://github.com/google/material-design-icons/raw/master/content/1x_web/ic_add_circle_white_24dp.png"></img>
+					<textarea type="text" value="" class="message-input-area" maxlength="2048" />
+					<img class="emoji-button" src="https://github.com/google/material-design-icons/raw/master/image/1x_web/ic_tag_faces_white_36dp.png"></img>
+				</div>
 			</div>
 		</div>
 	</div>
