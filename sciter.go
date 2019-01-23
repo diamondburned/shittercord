@@ -6,9 +6,15 @@ import (
 	"log"
 	"runtime"
 	"strings"
+	"sync"
 	"time"
 
 	"github.com/sciter-sdk/go-sciter"
+)
+
+var (
+	// SciterMutex prevents async draw calls
+	SciterMutex sync.Mutex
 )
 
 // GetElementByCSS gets element by CSS identifier (.css, etc)
@@ -40,6 +46,9 @@ func SetHTML(elem *sciter.Element, html string) {
 		log.Println("elem is nil")
 		return
 	}
+
+	SciterMutex.Lock()
+	defer SciterMutex.Unlock()
 
 	elem.SetHtml(html, sciter.SIH_REPLACE_CONTENT)
 	elem.Update(true) // screen sometimes flashes white with false
