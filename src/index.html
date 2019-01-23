@@ -67,9 +67,6 @@
 			var input = $(.message-input-area)
 			var thing = input.value
 			var wordRemoved = thing.substring(0, thing.lastIndexOf(" "))
-
-			stdout.println(wordRemoved)
-
 				wordRemoved += " " + this.id + " "
 			
 			input.value = wordRemoved
@@ -109,7 +106,11 @@
 		$(.message-input-area).on("change", function(evt) {
 			/*$(.autosuggestions).clear()*/
 			var input = this.value
-			view.fuzzy(input)
+			if (input.split(" ").length > 1) {
+				view.fuzzy(input)
+			} else {
+				$(.autosuggestions).clear()
+			}
 		})
 	</script>
 </head>

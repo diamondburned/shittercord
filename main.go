@@ -6,7 +6,6 @@ import (
 	"log"
 	"strconv"
 	"strings"
-	"time"
 
 	"github.com/RumbleFrog/discordgo"
 	packr "github.com/gobuffalo/packr/v2"
@@ -172,46 +171,26 @@ func main() {
 		return nil
 	})
 
-	buffer := make(chan string)
+	buffer := make(chan string, 2048)
 
 	go func(buffer chan string) {
-		var (
-			input string
-			dura  = time.Duration(time.Millisecond * 200)
-			timer = time.NewTimer(dura)
-		)
+		for input := range buffer {
+			fields := strings.Fields(input)
 
-		for {
-			select {
-			case <-timer.C:
-				log.Println(input)
-				fields := strings.Fields(input)
+			if len(fields) == 0 {
+				continue
+			}
 
-				if len(fields) == 0 {
-					continue
-				}
+			i := fields[len(fields)-1]
 
-				i := fields[len(fields)-1]
+			switch {
+			case strings.HasPrefix(i, ":"):
 				if len(i) < 2 {
+					GetElementByCSS(".autosuggestions").Clear()
 					continue
 				}
 
-				log.Println("SCREAM")
-
-				switch {
-				case strings.HasPrefix(i, ":"):
-					handleEmojis(input)
-				default:
-					GetElementByCSS(".autosuggestions").Clear()
-				}
-			case buf := <-buffer:
-				input = buf
-
-				if !timer.Stop() {
-					<-timer.C
-				}
-
-				timer.Reset(dura)
+				handleEmojis(i)
 			}
 		}
 	}(buffer)
@@ -221,10 +200,7 @@ func main() {
 			return nil
 		}
 
-		select {
-		case buffer <- args[0].String():
-		default:
-		}
+		buffer <- args[0].String()
 
 		return nil
 	})
