@@ -54,6 +54,8 @@
 
 		event click $(.guild) {
 			$(.channel-list).html = `<div class="warn-message">Loading...</div>`
+			$(.guild).style#visibility = "collapse"
+			$(.channel).style#visibility = "visible"
 			view.loadguild(this.id)
 		}
 
@@ -66,8 +68,13 @@
 		event click $(.autosuggestion) {
 			var input = $(.message-input-area)
 			var thing = input.value
-			var wordRemoved = thing.substring(0, thing.lastIndexOf(" "))
+			var lastIndex = thing.lastIndexOf(" ")
+			
+			var wordRemoved = this.id
+			if (lastIndex > -1) { 
+				wordRemoved = thing.substring(0, thing.lastIndexOf(" "))
 				wordRemoved += " " + this.id + " "
+			}
 			
 			input.value = wordRemoved
 			$(.autosuggestions).clear()
@@ -106,7 +113,7 @@
 		$(.message-input-area).on("change", function(evt) {
 			/*$(.autosuggestions).clear()*/
 			var input = this.value
-			if (input.split(" ").length > 1) {
+			if (input.split(" ").length > 0) {
 				view.fuzzy(input)
 			} else {
 				$(.autosuggestions).clear()
@@ -147,26 +154,6 @@
 			</div>
 			<div class="bottom-pane">
 				<div class="autosuggestions">
-					<div class="autosuggestion" id="<:thonkmad:451162399417040897>">
-						<img class="emoji" src="https://cdn.discordapp.com/emojis/451162399417040897.png?v=1" />
-						:thonkmad:
-						<p class="autosuggestion-subtitle">r/unixhentai</p>
-					</div>
-					<div class="autosuggestion" id="<:thonkmad:451162399417040897>"
->						<img class="emoji" src="https://cdn.discordapp.com/emojis/451162399417040897.png?v=1" />
-						:thonkmad:
-						<p class="autosuggestion-subtitle">r/unixhentai</p>
-					</div>
-					<div class="autosuggestion" id="<:thonkmad:451162399417040897>">
-						<img class="emoji" src="https://cdn.discordapp.com/emojis/451162399417040897.png?v=1" />
-						:thonkmad:
-						<p class="autosuggestion-subtitle">r/unixhentai</p>
-					</div>
-					<div class="autosuggestion" id="<:thonkmad:451162399417040897>">
-						<img class="emoji" src="https://cdn.discordapp.com/emojis/451162399417040897.png?v=1" />
-						:thonkmad:
-						<p class="autosuggestion-subtitle">r/unixhentai</p>
-					</div>
 				</div>
 				<div class="message-input">
 					<img class="file-upload-button" src="https://github.com/google/material-design-icons/raw/master/content/1x_web/ic_add_circle_white_24dp.png"></img>
