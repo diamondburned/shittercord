@@ -5,9 +5,9 @@
 		/*@import url(/home/diamond/Scripts/scitercord/src/style.css);*/
 	</style>
 	<script type="text/tiscript">
-		self.on("click", "a[href^=http]", function() {
-			var href = this.attributes["href"];
-			Sciter.launch(href); // will open the url in default browser
+		self.on("click", "a", function() {
+			view.openURL(this.attributes["href"])
+			return true
 		});
 
 		$(.left).on("~mouseup", "div.topbar-guild-button", function() {
@@ -107,6 +107,10 @@
 				this.value = ""
 
 				return true;
+			} else {
+				if (evt.keyCode == 38 && this.value == "") {
+					stdout.println("in the future, this will trigger a message edit. just saying.")
+				}
 			}
 		})
 

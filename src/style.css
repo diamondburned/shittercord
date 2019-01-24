@@ -516,16 +516,26 @@ p.message-embed-title {
 }
 
 .message-embed-thumbnail img {
+	max-width: 400px;
+	max-height: 300px;
+	width: auto;
+	height: auto;
+	foreground-size: auto;
+}
+
+img.mini-thumbnail {
 	max-width: 80px;
 	max-height: 120px;
 	width: auto;
 	height: auto;
+	foreground-size: cover;
 }
 
+/*
 .message-embed-thumbnail img:not([width=""]) {
 	max-width: auto;
 	max-height: auto;
-}
+}*/
 
 .message-embed-footer, .message-embed-author {
 	flow: horizontal;
