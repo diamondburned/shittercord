@@ -11,6 +11,11 @@ import (
 // Emojis is a slice
 type Emojis []*discordgo.Emoji
 
+type Emoji struct {
+	ID   string
+	Name string
+}
+
 // String returns the fuzzy search part of the struct
 func (e Emojis) String(i int) string {
 	return e[i].Name

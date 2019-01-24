@@ -61,12 +61,17 @@ func init() {
 
 func main() {
 	var (
-		token     = flag.String("t", "", "Discord token (1)")
-		debug     = flag.Bool("d", false, "Enables the debugging Websocket for Inspector (Sciter developers only!)")
-		customCSS = flag.String("css", "", "Location to custom CSS (ONLY Sciter CSS! https://sciter.com/docs/content/css/cssmap.html)")
+		token       = flag.String("t", "", "Discord token (1)")
+		debug       = flag.Bool("d", false, "Enables the debugging Websocket for Inspector (Sciter developers only!)")
+		customCSS   = flag.String("css", "", "Location to custom CSS (ONLY Sciter CSS! https://sciter.com/docs/content/css/cssmap.html)")
+		deleteToken = flag.Bool("deletetoken", false, "Deletes token")
 	)
 
 	flag.Parse()
+
+	if *deleteToken {
+		log.Fatalln(keyring.Delete(AppName, "token"))
+	}
 
 	k, err := keyring.Get(AppName, "token")
 	if err != nil {
