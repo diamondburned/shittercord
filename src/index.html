@@ -54,8 +54,8 @@
 
 		event click $(.guild) {
 			$(.channel-list).html = `<div class="warn-message">Loading...</div>`
-			$(.guild).style#visibility = "collapse"
-			$(.channel).style#visibility = "visible"
+			$(.guild-list).style#visibility = "collapse"
+			$(.channel-list).style#visibility = "visible"
 			view.loadguild(this.id)
 		}
 
