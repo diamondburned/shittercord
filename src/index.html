@@ -5,9 +5,9 @@
 		/*@import url(/home/diamond/Scripts/scitercord/src/style.css);*/
 	</style>
 	<script type="text/tiscript">
-		self.on("click", "a[href^=http]", function() {
-			var href = this.attributes["href"];
-			Sciter.launch(href); // will open the url in default browser
+		self.on("click", "a", function() {
+			view.openURL(this.attributes["href"])
+			return true
 		});
 
 		$(.left).on("~mouseup", "div.topbar-guild-button", function() {

@@ -9,6 +9,7 @@ import (
 
 	"github.com/RumbleFrog/discordgo"
 	packr "github.com/gobuffalo/packr/v2"
+	"github.com/pkg/browser"
 
 	"github.com/sciter-sdk/go-sciter"
 	"github.com/sciter-sdk/go-sciter/window"
@@ -104,11 +105,6 @@ func main() {
 		)
 	}
 
-	if *customCSS != "" {
-		log.Println("Appending custom Sciter CSS...")
-		log.Println("Status:", sciter.AppendMasterCSS(*customCSS))
-	}
-
 	w, err = window.New(sciter.DefaultWindowCreateFlag, &sciter.Rect{
 		Left:   0,
 		Top:    0,
@@ -126,7 +122,12 @@ func main() {
 	)
 
 	w.LoadHtml(html, "")
-	w.SetCSS(css, "", "text/css")
+	sciter.AppendMasterCSS(css)
+
+	if *customCSS != "" {
+		log.Println("Appending custom Sciter CSS...")
+		log.Println("Status:", sciter.AppendMasterCSS(*customCSS))
+	}
 
 	w.DefineFunction("loadguild", func(args ...*sciter.Value) *sciter.Value {
 		if len(args) < 1 {
@@ -172,6 +173,20 @@ func main() {
 		}
 
 		go sendMessage(args[0].String())
+
+		return nil
+	})
+
+	w.DefineFunction("openURL", func(args ...*sciter.Value) *sciter.Value {
+		if len(args) < 1 {
+			return nil
+		}
+
+		log.Println(args[0].String())
+
+		if e := browser.OpenURL(args[0].String()); e != nil {
+			log.Println(e)
+		}
 
 		return nil
 	})

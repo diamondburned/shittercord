@@ -1,6 +1,5 @@
 html {
 	background-color: rgba(25, 25, 25, 0.75);
-	window-frame: "transparent";
 }
 
 body {
@@ -9,7 +8,6 @@ body {
 	font-size: 12pt;
 	display: block;
 	/*background-color: #282828;*/
-	window-blurbehind: "ultra-dark";
 	color: #dbdbdb;
 	margin: 0;
 }
@@ -338,7 +336,6 @@ img.author-avatar[src=""] {
 
 .message-container {
 	width: 1*;
-	flow: vertical;
 	margin-top: 10px;
 	margin-bottom: 5px;
 }
@@ -347,7 +344,6 @@ img.author-avatar[src=""] {
 	width: 1*;
 	padding-right: 1em;
 	margin-bottom: 5px;
-	overflow-wrap: break-word;
 }
 
 .message-content p {
@@ -429,12 +425,12 @@ div.message-input {
 }
 
 .message-input-area {
-	display: block;
-	size: 1* 40px;
-	flow: horizontal;
-	background: rgba(0, 0, 0, 0);
-	border: none;
-	color: white;
+	display: block !important;
+	size: 1* 40px !important;
+	flow: horizontal !important;
+	background: rgba(0, 0, 0, 0) !important;
+	border: none !important;
+	color: white !important;
 }
 
 .message-input-area>* {
@@ -516,16 +512,26 @@ p.message-embed-title {
 }
 
 .message-embed-thumbnail img {
+	max-width: 400px;
+	max-height: 300px;
+	width: auto;
+	height: auto;
+	foreground-size: auto;
+}
+
+img.mini-thumbnail {
 	max-width: 80px;
 	max-height: 120px;
 	width: auto;
 	height: auto;
+	foreground-size: cover;
 }
 
+/*
 .message-embed-thumbnail img:not([width=""]) {
 	max-width: auto;
 	max-height: auto;
-}
+}*/
 
 .message-embed-footer, .message-embed-author {
 	flow: horizontal;

@@ -59,7 +59,14 @@
 	</div>
 	<div class="message-embed-thumbnail">
 		<a href="{{ .ThumbnailOriginal }}">
-			<img src="{{ .ThumbnailURL }}" width="{{ .ThumbnailWidth }}" height="{{ .ThumbnailHeight }}" />
+			<img src="{{ .ThumbnailURL }}" 
+			 {{ if .Description }}
+				 class="mini-thumbnail"
+			 {{ else }}
+				 width="{{ .ThumbnailWidth }}" height="{{ .ThumbnailHeight }}" 
+				 style="width: {{ .ThumbnailWidth }}; height: {{ .ThumbnailHeight }}"
+			 {{ end }}
+			/>
 		</a>
 	</div>
 </div>
