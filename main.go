@@ -117,7 +117,7 @@ func main() {
 	)
 
 	w.LoadHtml(html, "")
-	sciter.SetMasterCSS(css)
+	sciter.AppendMasterCSS(css)
 
 	if *customCSS != "" {
 		log.Println("Appending custom Sciter CSS...")
